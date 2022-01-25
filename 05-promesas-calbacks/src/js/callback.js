@@ -1,3 +1,6 @@
+//es enviar una funcion como argumento
+
+
 const heroes = {
 
 
@@ -18,12 +21,13 @@ const heroes = {
 
 
 
-export const buscarHeroe = (id, callback) => {
-    const heroe  = heroes[id];
+export const buscarHeroe = (id, callbackFuncionDeRetorno) => {
+    const heroe = heroes[id];
+
     if (heroe) {
-        callback(null, heroe);
+        callbackFuncionDeRetorno(null, heroe);
     } else {
-        callback( `No existe un  heroe con el Id ${id}` )    
+        callbackFuncionDeRetorno(`No existe un  heroe con el Id ${id}`)
     }
-    
+
 }
