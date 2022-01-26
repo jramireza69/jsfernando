@@ -1,11 +1,44 @@
-import { buscarHeroeAsyng, buscarHeroe } from "./promesas";
+import { buscarHeroeAsyng } from "./asyng";
+
 
 
 const heroesIds =  [  'capi', 'airon', 'spider'];
-const heroesPromesas = heroesIds.map(buscarHeroe); //es lo mismo
+//const heroesPromesas = heroesIds.map(buscarHeroe); //es lo mismo
 /* const heroesPromesas = heroesIds.map(id => buscarHeroe(id)); */
 
+//esta funcion sin usar el await genera un falso positivo a menos que se apoye con el setTimeout el cual no es eficiente
+/* export const obtenerHeroesArr =  () => {
+    const heroesArr = [];
 
+     
+
+        for (const id of heroesIds  ) {
+         buscarHeroeAsyng(id).then(heroe => {
+             heroesArr.push( heroe)
+         })
+          
+        }
+        setTimeout(() => {
+            console.table(heroesArr);
+        }, 1000);      
+
+    return heroesArr;
+}; */
+
+//*usando el await
+export const obtenerHeroesArr = async  () => {
+    const heroesArr = [];
+
+     
+
+        for (const id of heroesIds  ) {
+      const heroe =  await  buscarHeroeAsyng(id)
+      heroesArr.push(heroe)
+          
+        }    
+
+    return heroesArr;
+};
 /* export const obtenerHeroesArr = async () => {
     const heroesArr = [];
 
@@ -23,11 +56,11 @@ const heroesPromesas = heroesIds.map(buscarHeroe); //es lo mismo
 }; */
 
 //convertido a una sola linea
-export const obtenerHeroesArr = async () => await Promise.all(heroesIds.map(buscarHeroe));
+/* export const obtenerHeroesArr = async () => await Promise.all(heroesIds.map(buscarHeroe)); */
 
 //manejo error del await
 
-export const obtenerHeroeAwait  = async (id) => {
+/* export const obtenerHeroeAwait  = async (id) => {
     try {
        const heroe = await buscarHeroeAsyng(id)
     return heroe;  
@@ -39,9 +72,9 @@ export const obtenerHeroeAwait  = async (id) => {
         }
     }
    
-}
+} */
 
-export const herosCiclo = async () => {
+/* export const herosCiclo = async () => {
     console.time('Heroes ciclo');
     
     const heroes = await Promise.all( heroesPromesas );
@@ -49,6 +82,6 @@ export const herosCiclo = async () => {
     console.log(heroes);
     
     console.timeEnd('Heroes ciclo find');
-};
+}; */
 
 
